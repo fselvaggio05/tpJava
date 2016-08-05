@@ -5,6 +5,7 @@ public class prueba {
 	public static void main()
 	{
 		System.out.println("Hola Mundo!!");
+		System.out.println("Hola andre!");
 	}
 
 }
