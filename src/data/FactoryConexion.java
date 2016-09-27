@@ -4,18 +4,19 @@ import java.sql.*;
 import util.*;
 
 public class FactoryConexion {
-	
-	private String dbDriver = "com.mysql.jdbc.Driver";
-	private String host = "localhost";
-	private String port = "3306";
-	private String user = "root";
-	//preguntar bien el user de la DB
-	private String pass = "1234";
-	private String dataBase = "tpJava";
-	private String dataBaseType = "mysql";
+
+	private String dbDriver="com.mysql.jdbc.Driver";
+	private String host="localhost";
+	private String port="3306";
+	private String user="root";
+	//averiguar bien el user, preguntar a Adrian que el
+	//la tiene mas clara que yo
+	private String pass="1234";
+	private String db="tp_java";
+	private String dbType="mysql";
 	
 	private Connection conn;
-	private int cantConn = 0;
+	private int cantConn=0;
 	
 	private FactoryConexion() throws ApplicationException{
 		try {
@@ -38,12 +39,12 @@ public class FactoryConexion {
 		try {
 			if(conn==null || conn.isClosed()){
 				conn = DriverManager.getConnection(
-						"jdbc:"+dataBaseType+"://"+host+":"+port+"/"+
-						dataBase+"?user="+user+"&password="+pass);
+						"jdbc:"+dbType+"://"+host+":"+port+"/"+
+						db+"?user="+user+"&password="+pass);
 				cantConn++;
 			}
 		} catch (SQLException e) {
-			new ApplicationException("Error al conectar a la Base de Datos",e);
+			new ApplicationException("Error al conectar a la DB",e);
 
 		}
 		return conn;
