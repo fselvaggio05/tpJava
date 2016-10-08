@@ -18,16 +18,60 @@ public class CtrlABMCPersonaje {
 		dataPer = new dataPersonaje();
 	}
 	
-	public void add(Personaje p){
-		dataPer.add(p);
-	}
+	public void add(Personaje p) throws ApplicationException{
 	
-	private void update(Personaje p){
-		dataPer.update(p);
-	}
-	
-	public void delete(){
+		for (Personaje personaje : personajes) {
+			if(personaje.equals(p))
+			{
+				throw new ApplicationException("El personaje ya existe");
+			}
+			
+			else
+			{
+				personajes.add(p);
+			}
+		}
 		
 	}
-
+	
+	
+	private void update(Personaje p) throws ApplicationException{
+		
+		for (Personaje pers : personajes) {
+			if(pers.equals(p))
+			{
+				dataPer.update(p);
+			}
+			
+			else
+			{
+				throw new ApplicationException("El personaje no existe ");
+			}
+		}
+		
+		
+	}
+	
+	public void delete(Personaje p) throws ApplicationException
+	{
+		
+		for (Personaje pers : personajes) {
+			if(pers.equals(p))
+			{
+				dataPer.delete(p);
+			}
+			
+			else
+			{
+				throw new ApplicationException("El personaje no existe ");
+			}
+		}
+		
+	}
+	
+	public Personaje getPersonaje(Personaje p){
+		
+		return dataPer.getByNombre(p);
+	}
+		
 }

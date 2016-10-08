@@ -18,14 +18,16 @@ public class dataPersonaje {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into personas(vida,energia,defensa,evasion,puntosTotales)"+
-					" values(?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+					"insert into personas(nombre,vida,energia,defensa,evasion,puntosTotales)"+
+					" values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 						
-			stmt.setInt(1, p.getId());
-			stmt.setInt(2, p.getVida());
-			stmt.setInt(3, p.getDefensa());
-			stmt.setInt(4, p.getEvasion());
-			stmt.setInt(5,p.getPuntosTotales());
+			
+			stmt.setString(1, p.getNombre());
+			stmt.setInt(2, p.getId());
+			stmt.setInt(3, p.getVida());
+			stmt.setInt(4, p.getDefensa());
+			stmt.setInt(5, p.getEvasion());
+			stmt.setInt(6,p.getPuntosTotales());
 			stmt.execute();
 			
 			rs=stmt.getGeneratedKeys();
@@ -110,15 +112,15 @@ public class dataPersonaje {
 		
 	}
 	
-	public Personaje getById(Personaje per){
+	public Personaje getByNombre(Personaje per){
 		Personaje p=null;
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select vida, energia, defensa, evasion, puntos totales from personas where dni=?");
-			stmt.setInt(1, per.getId());
+					"select vida, energia, defensa, evasion, puntos totales from personaje where id=?");
+			stmt.setString(1, per.getNombre());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();
