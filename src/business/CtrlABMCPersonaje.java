@@ -35,7 +35,7 @@ public class CtrlABMCPersonaje {
 	}
 	
 	
-	private void update(Personaje p) throws ApplicationException{
+	public void update(Personaje p) throws ApplicationException{
 		
 		for (Personaje pers : personajes) {
 			if(pers.equals(p))
