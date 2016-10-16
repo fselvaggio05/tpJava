@@ -72,7 +72,7 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(lblId);
 		
 		txtId = new JTextField();
-		txtId.setEnabled(false);
+		txtId.setEditable(false);
 		txtId.setBounds(142, 28, 114, 19);
 		frame.getContentPane().add(txtId);
 		txtId.setColumns(10);
@@ -144,7 +144,7 @@ public class ABMCPersonaje {
 		});
 		btnAgregar.setBounds(285, 129, 117, 25);
 		frame.getContentPane().add(btnAgregar);
-		
+		//Porq buscar es mouseAdapter y modificar es actionPerformed?
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -167,7 +167,7 @@ public class ABMCPersonaje {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 				buscar();
 			}
 		});
@@ -229,29 +229,40 @@ public class ABMCPersonaje {
 		if(p!=null){
 			MapearAFormulario(p);
 		}
+		else
+		{
+			notifyUser("No se ha encontrado el personaje");
+		}
 	}
 
 	public void MapearAFormulario(Personaje p){
-		if(p.getId()>0) txtId.setText(String.valueOf(p.getId())); //los int los toma con string.valueof
+		//if(p.getId()>0) txtId.setText(String.valueOf(p.getId())); //los int los toma con string.valueof
 		
 		txtNombre.setText(p.getNombre());
 		txtVida.setText(String.valueOf(p.getVida()));
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()));
+		//txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()));
 	}
 	
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
-		if(!txtId.getText().isEmpty()) p.setId(Integer.parseInt(txtId.getText()));
-		p.setNombre(txtNombre.getText());
-		p.setVida(Integer.parseInt(txtEnergia.getText()));
-		p.setEnergia(Integer.parseInt(txtVida.getText()));
-		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
-		p.setEvasion(Integer.parseInt(txtEvasion.getText()));;
-		p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
-		
+		if(txtVida.getText().isEmpty()) 
+		{
+			p.setNombre(txtNombre.getText());
+		}
+		else
+		{
+			//p.setId(Integer.parseInt(txtId.getText()));
+			p.setVida(Integer.parseInt(txtEnergia.getText()));
+			p.setEnergia(Integer.parseInt(txtVida.getText()));
+			p.setDefensa(Integer.parseInt(txtDefensa.getText()));
+			p.setEvasion(Integer.parseInt(txtEvasion.getText()));;
+			//p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
+			
+		}
+			
 		return p;
 	}
 	

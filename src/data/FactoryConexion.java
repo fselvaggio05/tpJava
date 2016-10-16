@@ -40,8 +40,9 @@ public class FactoryConexion {
 			if(conn==null || conn.isClosed()){
 				conn = DriverManager.getConnection(
 						"jdbc:"+dbType+"://"+host+":"+port+"/"+
-						db+"?user="+user+"&password="+pass);
+						db+"?user="+user+"&password="+pass+"&useSSL=false");
 				cantConn++;
+				
 			}
 		} catch (SQLException e) {
 			new ApplicationException("Error al conectar a la DB",e);
