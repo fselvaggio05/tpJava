@@ -209,7 +209,8 @@ public class ABMCPersonaje {
 				Personaje p=MapearDeFormulario();
 				ctrl.add(p);
 				MapearAFormulario(p);
-				//limpiarCampos();
+				limpiarCampos();
+				
 			} catch (ApplicationException ae) {
 				notifyUser(ae.getMessage(),ae, Level.DEBUG);
 			}
@@ -221,6 +222,10 @@ public class ABMCPersonaje {
 		txtNombre.setText("");
 		txtEnergia.setText("");
 		txtVida.setText("");
+		txtDefensa.setText("");
+		txtEnergia.setText("");
+		txtEvasion.setText("");
+		txtPtsTotales.setText("");
 		
 	}
 
