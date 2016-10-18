@@ -10,10 +10,12 @@ public class Personaje {
 	private int puntosTotales;
 	private int consumoEnergia;
 	private int danio;
+	boolean resultado;
 	
-	
-boolean resultado;
-	
+	public Personaje()
+	{
+		
+	}
 	
 	public Personaje(String nombre, int vida, int energia, int defensa, int evasion)
 	{
