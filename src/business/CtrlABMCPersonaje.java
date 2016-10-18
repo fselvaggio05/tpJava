@@ -7,31 +7,57 @@ import java.util.ArrayList;
 import data.dataPersonaje;
 import entities.*;
 import util.ApplicationException;
-
+//arreglar CONTROLADOR
 public class CtrlABMCPersonaje {
 	
-	private ArrayList<Personaje> personajes;
-	
+		
 	private dataPersonaje dataPer;
+	private Personaje jugador1;
+	private Personaje jugador2;
+	int turno = 1;
+		
+		
+	public void setPersonajes(Personaje j1, Personaje j2)
+	{
+		this.jugador1=j1;
+		this.jugador2=j2;
+	}
+	
+	
+	public Personaje getPersonajeTurno()
+	{
+		if(!(turno%2==0))
+		{
+			return jugador1;
+		}
+		else
+		{
+			return jugador2;
+		}
+		turno++;
+	}
 	
 	public CtrlABMCPersonaje(){
-		personajes = new ArrayList<Personaje>();
+		
 		dataPer = new dataPersonaje();
+		
 	}
 	
 	public void add(Personaje p) throws ApplicationException{
 	
-		for (Personaje personaje : personajes) {
-			if(personaje.equals(p))
+	
+			/* ver como validar si un personaje ya esta en la bd
+			 * if(p.getNombre()==this.getPersonaje(p))
+			 
 			{
 				throw new ApplicationException("El personaje ya existe");
 			}
 			
-			else
+			else*/
 			{
-				personajes.add(p);
+				dataPer.add(p);
 			}
-		}
+		//}
 		
 	}
 	

@@ -12,26 +12,29 @@ public class Personaje {
 	private int danio;
 	
 	
-	public void Personaje(String nombre, int vida, int energia, int defensa, int evasion)
+boolean resultado;
+	
+	
+	public Personaje(String nombre, int vida, int energia, int defensa, int evasion)
 	{
 		this.setNombre(nombre);
-		int ptsTotales=vida + energia + defensa + evasion;
+		int ptsTotales=vida + energia + defensa + evasion;		 
 		if(ptsTotales > 200)
 		{
-			//ver como lo maneja la interfaz 
+			resultado = false;
 		}
 		
 		else
 		{
-			if(defensa>21)
+			if(defensa>20)
 			{
-				//maneja interfaz
+				resultado = false;
 			}
 			else
 			{
-				if(evasion>81)
+				if(evasion>80)
 				{
-					//maneja interfaz
+					resultado = false;
 				}
 				else
 				{
@@ -39,11 +42,14 @@ public class Personaje {
 					this.setEnergia(energia);
 					this.setDefensa(defensa);
 					this.setEvasion(evasion);
+					this.setPuntosTotales(ptsTotales);
+					resultado = true;
 				}
 			}
 			
 		}
 	}
+	
 	
 	public void atacar(int energia)
 	{
@@ -53,14 +59,14 @@ public class Personaje {
 	
 	public void recibirAtaque(int energia)
 	{
-		if(evade())
+		/*if(evade())
 		{
 			//mostrar cartel desde la interfaz "ataque evadido'
 		}
 		else
-		{
+		{*/
 			danio = danio + energia;
-		}
+		//}
 	}
 	
 	
