@@ -1,16 +1,16 @@
 package business;
 //en el ejercicio de ABM Personas, el controlador no tiene conexion con la cada de data..Estara bien??
 import java.io.InvalidClassException;
-
-
+import java.util.ArrayList;
 
 import data.dataPersonaje;
 import entities.*;
 import util.ApplicationException;
-//arreglar CONTROLADOR
+
 public class CtrlABMCPersonaje {
 	
-		
+	private ArrayList<Personaje> personajes;
+	
 	private dataPersonaje dataPer;
 	private Personaje jugador1;
 	private Personaje jugador2;
