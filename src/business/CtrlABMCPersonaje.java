@@ -14,7 +14,8 @@ public class CtrlABMCPersonaje {
 	private dataPersonaje dataPer;
 	private Personaje jugador1;
 	private Personaje jugador2;
-	int turno = 1;
+	static int turno;
+	
 		
 		
 	public void setPersonajes(Personaje j1, Personaje j2)
@@ -26,6 +27,7 @@ public class CtrlABMCPersonaje {
 	
 	public Personaje getPersonajeTurno()
 	{
+		System.out.println(turno);
 		if(!(turno%2==0))
 		{
 			return jugador1;
@@ -34,13 +36,13 @@ public class CtrlABMCPersonaje {
 		{
 			return jugador2;
 		}
-		turno++;
+		//turno++;
 	}
 	
 	public CtrlABMCPersonaje(){
 		
 		dataPer = new dataPersonaje();
-		
+		turno=0;
 	}
 	
 	public void add(Personaje p) throws ApplicationException{
@@ -64,17 +66,9 @@ public class CtrlABMCPersonaje {
 	
 	public void update(Personaje p) throws ApplicationException{
 		
-		for (Personaje pers : personajes) {
-			if(pers.equals(p))
-			{
+		
 				dataPer.update(p);
-			}
 			
-			else
-			{
-				throw new ApplicationException("El personaje no existe ");
-			}
-		}
 		
 		
 	}
@@ -82,25 +76,13 @@ public class CtrlABMCPersonaje {
 	public void delete(Personaje p) throws ApplicationException
 	{
 		
-		for (Personaje pers : personajes) {
-			if(pers.equals(p))
-			{
 				dataPer.delete(p);
-			}
 			
-			else
-			{
-				throw new ApplicationException("El personaje no existe ");
-			}
-		}
-		
 	}
+	
 	
 	public Personaje getPersonaje(Personaje p){
 		return dataPer.getByNombre(p);
- 	
-		
-	
-	}
+ 	}
 		
 }

@@ -18,13 +18,13 @@ public class dataPersonaje {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into personas(nombre,vida,energia,defensa,evasion,puntosTotales)"+
+					"insert into personaje(nombre,vida,energia,defensa,evasion,puntosTotales)"+
 					" values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 						
-			
+			//como id esta definido como autoincremental, no es necesario poner nada
 			stmt.setString(1, p.getNombre());
-			stmt.setInt(2, p.getId());
-			stmt.setInt(3, p.getVida());
+			stmt.setInt(2, p.getVida());
+			stmt.setInt(3,p.getEnergia());
 			stmt.setInt(4, p.getDefensa());
 			stmt.setInt(5, p.getEvasion());
 			stmt.setInt(6,p.getPuntosTotales());
@@ -58,15 +58,16 @@ public class dataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personas set vida=?, energia=?, defensa=?, evasion=?, puntosTotales=?"+
-					" where id=?");
+					"update personaje set vida=?, energia=?, defensa=?, evasion=?, puntosTotales=?"+
+					" where nombre=?");
 			
 			stmt.setInt(1, p.getVida());
 			stmt.setInt(2, p.getEnergia());
 			stmt.setInt(3, p.getDefensa());
 			stmt.setInt(4, p.getEvasion());
 			stmt.setInt(5, p.getPuntosTotales());
-			stmt.setInt(6, p.getId());
+			stmt.setString(6, p.getNombre());
+			
 			stmt.execute();
 			
 			
@@ -92,8 +93,8 @@ public class dataPersonaje {
 		
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"delete from personaje where id=?");
-			stmt.setInt(1, p.getId());
+					"delete from personaje where nombre=?");
+			stmt.setString(1, p.getNombre());
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

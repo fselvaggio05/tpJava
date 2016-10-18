@@ -210,6 +210,7 @@ public class ABMCPersonaje {
 				ctrl.add(p);
 				MapearAFormulario(p);
 				limpiarCampos();
+				notifyUser("Personaje agregado exitosamente");
 				
 			} catch (ApplicationException ae) {
 				notifyUser(ae.getMessage(),ae, Level.DEBUG);
@@ -243,28 +244,30 @@ public class ABMCPersonaje {
 	public void MapearAFormulario(Personaje p){
 		//if(p.getId()>0) txtId.setText(String.valueOf(p.getId())); //los int los toma con string.valueof
 		
+		txtId.setText(String.valueOf(p.getId()));
 		txtNombre.setText(p.getNombre());
 		txtVida.setText(String.valueOf(p.getVida()));
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		//txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()));
+		txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()));
 	}
 	
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
+		//adaptacion hecha para que haga 2 cosas diferentes si quiero buscar o agregar 
 		if(txtVida.getText().isEmpty()) 
 		{
 			p.setNombre(txtNombre.getText());
 		}
 		else
 		{
-			//p.setId(Integer.parseInt(txtId.getText()));
+			p.setNombre(txtNombre.getText());
 			p.setVida(Integer.parseInt(txtEnergia.getText()));
 			p.setEnergia(Integer.parseInt(txtVida.getText()));
 			p.setDefensa(Integer.parseInt(txtDefensa.getText()));
 			p.setEvasion(Integer.parseInt(txtEvasion.getText()));;
-			//p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
+			p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
 			
 		}
 			
