@@ -62,7 +62,7 @@ public class ABMCPersonaje {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 452, 308);
+		frame.setBounds(100, 100, 424, 341);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -174,6 +174,17 @@ public class ABMCPersonaje {
 		btnBuscar.setBounds(285, 17, 117, 25);
 		frame.getContentPane().add(btnBuscar);
 		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] args = null;
+				frame.dispose();
+				Inicio.main(args);
+			}
+		});
+		btnVolver.setBounds(285, 268, 114, 25);
+		frame.getContentPane().add(btnVolver);
+		
 			
 		
 	}
@@ -231,7 +242,7 @@ public class ABMCPersonaje {
 	}
 
 	protected void buscar() {
-		Personaje p = ctrl.getPersonaje(MapearDeFormulario());
+		Personaje p = ctrl.getPersonaje(MapearDeFormulario().getNombre());
 		if(p!=null){
 			MapearAFormulario(p);
 		}

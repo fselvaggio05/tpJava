@@ -57,8 +57,8 @@ public class CtrlABMCPersonaje {
 	}
 	
 	
-	public Personaje getPersonaje(Personaje p){
-		return dataPer.getByNombre(p);
+	public Personaje getPersonaje(String nombre){
+		return dataPer.getByNombre(nombre);
  	}
 		
 }

@@ -1,22 +1,32 @@
 package business;
+
 import entities.*;
 import data.*;
 
 public class CtrlCombate {
 	
 
-	private Personaje jugador1, jugador2;
+	public static Personaje jugador1, jugador2;
 	private dataPersonaje dataPer;
 	private int turno=1;
 	
 	
 	
-	public void setPersonajes(Personaje j1, Personaje j2)
+	public void setJugadores(Personaje p1, Personaje p2)
 	{
-		this.jugador1=j1;
-		this.jugador2=j2;
+		this.jugador1=p1;
+		this.jugador2=p2;
 	}
 	
+	public Personaje getJugador1()
+	{
+		return jugador1;
+	}
+	
+	public Personaje getJugador2()
+	{
+		return jugador2;
+	}
 	
 	public void Partida()
 	{
@@ -32,8 +42,7 @@ public class CtrlCombate {
 	{
 		Personaje persTurno=new Personaje();
 		
-		while()
-		{
+
 			if(!(turno%2==0))
 			{
 				persTurno=jugador1;
@@ -45,7 +54,7 @@ public class CtrlCombate {
 			
 			turno++;
 			
-		}
+
 		
 		return persTurno;
 		
