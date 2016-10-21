@@ -10,6 +10,7 @@ import util.ApplicationException;
 public class CtrlABMCPersonaje {
 	private dataPersonaje dataPer;
     ///comentario Florencia2
+	//otro comment andrea1
 	public CtrlABMCPersonaje(){
 		
 		dataPer = new dataPersonaje();
