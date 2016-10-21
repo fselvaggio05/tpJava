@@ -1,5 +1,7 @@
 package entities;
 
+import javax.swing.JOptionPane;
+
 public class Personaje {
 	private int id;
 	private String nombre;
@@ -62,14 +64,14 @@ public class Personaje {
 	
 	public void recibirAtaque(int energia)
 	{
-		/*if(evade())
+		if(evade())
 		{
-			//mostrar cartel desde la interfaz "ataque evadido'
+			JOptionPane.showMessageDialog(null, "Ataque evadido"); //Tirarlo al UI
 		}
 		else
-		{*/
+		{
 			danio = danio + energia;
-		//}
+		}
 	}
 	
 	
