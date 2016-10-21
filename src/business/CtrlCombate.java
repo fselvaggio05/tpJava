@@ -5,11 +5,36 @@ import data.*;
 
 public class CtrlCombate {
 	
-
-	public static Personaje jugador1, jugador2;
+	private static CtrlCombate ctrlCombate;
+	
+	public Personaje jugador1, jugador2; //porque eran static las variables jugador  y 2?
 	private dataPersonaje dataPer;
 	private int turno=1;
 	
+	
+	
+	
+	private CtrlCombate()
+	{
+		dataPer = new dataPersonaje();
+	}
+	
+	
+	public static CtrlCombate getInstanciaUnica()
+	{
+		if (ctrlCombate==null)
+		{
+			ctrlCombate = new CtrlCombate();
+		}
+		
+		else
+		{
+			System.out.println("error al crear instancia del controlador");
+		}
+		
+		return ctrlCombate;
+		
+	}
 	
 	
 	public void setJugadores(Personaje p1, Personaje p2)
@@ -20,7 +45,7 @@ public class CtrlCombate {
 	
 	public Personaje getJugador1()
 	{
-		return jugador1;
+		return this.jugador1;
 	}
 	
 	public Personaje getJugador2()
