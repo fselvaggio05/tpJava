@@ -56,6 +56,7 @@ public class Personaje {
 	public void atacar(int energia)
 	{
 		consumoEnergia = consumoEnergia + energia;
+		
 	}
 	
 	

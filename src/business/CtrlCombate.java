@@ -29,7 +29,7 @@ public class CtrlCombate {
 		
 		else
 		{
-			System.out.println("error al crear instancia del controlador");
+			//System.out.println("error al crear instancia del controlador");
 		}
 		
 		return ctrlCombate;
@@ -53,11 +53,17 @@ public class CtrlCombate {
 		return jugador2;
 	}
 	
-	public void Partida()
+	public void Partida(int energiaUsada)
 	{
-		if(jugador1.getVida()>0 && jugador2.getVida()>0)
+		if(jugador1.getVidaActual()>0 && jugador2.getVidaActual()>0)
 		{
-			this.getPersonajeTurno();
+			this.getPersonajeTurno().atacar(energiaUsada);
+			this.getTurnoAnterior().recibirAtaque(energiaUsada);
+			
+		}
+		else
+		{
+			//return false;
 		}
 	}
 	
@@ -86,6 +92,19 @@ public class CtrlCombate {
 		
 	}
 	
+	
+	public Personaje getTurnoAnterior()
+	{
+		if(this.getPersonajeTurno().equals(jugador2))
+		{
+			return jugador1;
+		}
+		
+		else
+		{
+			return jugador2;
+		}
+	}
 	
 	
 
