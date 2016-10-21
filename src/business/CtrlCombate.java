@@ -10,13 +10,14 @@ public class CtrlCombate {
 	public Personaje jugador1, jugador2; //porque eran static las variables jugador  y 2?
 	private dataPersonaje dataPer;
 	private int turno=1;
-	
+	public Personaje persTurno;
 	
 	
 	
 	private CtrlCombate()
 	{
 		dataPer = new dataPersonaje();
+		persTurno = new Personaje();
 	}
 	
 	
@@ -53,17 +54,19 @@ public class CtrlCombate {
 		return jugador2;
 	}
 	
-	public void Partida(int energiaUsada)
+	public boolean Partida(int energiaUsada)
 	{
-		if(jugador1.getVidaActual()>0 && jugador2.getVidaActual()>0)
+		if((jugador1.getVidaActual()>0 && jugador2.getVidaActual()>0))
 		{
-			this.getPersonajeTurno().atacar(energiaUsada);
+			this.persTurno.atacar(energiaUsada);
 			this.getTurnoAnterior().recibirAtaque(energiaUsada);
+			this.getPersonajeTurno();
+			return true;
 			
 		}
 		else
 		{
-			//return false;
+			return false;
 		}
 	}
 	
@@ -71,9 +74,7 @@ public class CtrlCombate {
 	
 	public Personaje getPersonajeTurno()
 	{
-		Personaje persTurno=new Personaje();
 		
-
 			if(!(turno%2==0))
 			{
 				persTurno=jugador1;
@@ -85,24 +86,26 @@ public class CtrlCombate {
 			
 			turno++;
 			
-
+			return persTurno;
 		
+	}
+	
+	public Personaje getPersTurno()
+	{
 		return persTurno;
-		
-		
 	}
 	
 	
 	public Personaje getTurnoAnterior()
 	{
-		if(this.getPersonajeTurno().equals(jugador2))
+		if(this.persTurno.equals(jugador1))
 		{
-			return jugador1;
+			return jugador2;
 		}
 		
 		else
 		{
-			return jugador2;
+			return jugador1;
 		}
 	}
 	
