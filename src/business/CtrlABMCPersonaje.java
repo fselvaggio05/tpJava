@@ -8,11 +8,9 @@ import entities.*;
 import util.ApplicationException;
 
 public class CtrlABMCPersonaje {
-	
 	private ArrayList<Personaje> personajes;
-	
 	private dataPersonaje dataPer;
-	
+	//otro comment andrea1
 	public CtrlABMCPersonaje(){
 		personajes = new ArrayList<Personaje>();
 		dataPer = new dataPersonaje();
