@@ -17,23 +17,23 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Combate extends JFrame {  //diferente tipo de ABMPer
+public class Combate extends JFrame {  
 
 	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtEnergiaAtaque;
-	private JTextField txtJugador1;
-	private JTextField txtVidaJugador1;
-	private JTextField txtEnergiaJugador1;
-	private JTextField txtDefensaJugador1;
-	private JTextField txtEvasionJugador1;
-	private JTextField txtJugador2;
-	private JTextField txtVidaJugador2;
-	private JTextField txtEnergiaJugador2;
-	private JTextField txtDefensaJugador2;
-	private JTextField txtEvasionJugador2;
-	private JTextField txtTurno;
 	private CtrlCombate ctrl;
+	private JLabel lblJugador1;
+	private JLabel lblJuagdor2;
+	private JLabel lblVidaJugador1;
+	private JLabel lblVidaJugador2;
+	private JLabel lblEnergiaJugador1;
+	private JLabel lblEnergiaJugador2;
+	private JLabel lblDefensaJugador1;
+	private JLabel lblEvasionJugador1;
+	private JLabel lblDefensaJugador2;
+	private JLabel lblEvasionJugador2;
+	private JLabel lblJugadorTurno;
 	
 	
 
@@ -59,12 +59,17 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 	public Combate() { //el parametro fue agregado para conservar la instancia del controlador creada en seleccionPersonajes
 		initialize();
 		ctrl=CtrlCombate.getInstanciaUnica();
+		if(ctrl == null){
+			JOptionPane.showMessageDialog(null, "Ha habido un problema creando el controlador");
+		}
 		this.setJugadores();
-		//final boolean resultado;
-		
-		 
-		
+		this.setVida();
+		this.setEnergia();
+		this.setTurno();
+		this.setDefensa();
+		this.setEvasion();		
 	}
+	
 	public void initialize(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 354, 295);
@@ -90,11 +95,11 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 		contentPane.add(lblVida);
 		
 		JLabel lblDefensa = new JLabel("Defensa:");
-		lblDefensa.setBounds(10, 90, 46, 14);
+		lblDefensa.setBounds(10, 90, 57, 14);
 		contentPane.add(lblDefensa);
 		
 		JLabel lblEvasin = new JLabel("Evasi\u00F3n:");
-		lblEvasin.setBounds(10, 115, 46, 14);
+		lblEvasin.setBounds(10, 115, 57, 14);
 		contentPane.add(lblEvasin);
 		
 		JLabel label = new JLabel("Vida:");
@@ -106,11 +111,11 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 		contentPane.add(label_1);
 		
 		JLabel label_2 = new JLabel("Defensa:");
-		label_2.setBounds(166, 90, 46, 14);
+		label_2.setBounds(166, 90, 62, 14);
 		contentPane.add(label_2);
 		
 		JLabel label_3 = new JLabel("Evasi\u00F3n:");
-		label_3.setBounds(166, 115, 46, 14);
+		label_3.setBounds(166, 115, 62, 14);
 		contentPane.add(label_3);
 		
 		JLabel lblTurno = new JLabel("Turno:");
@@ -129,19 +134,25 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 		JButton btnAtacar = new JButton("Atacar");
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(ctrl.Partida(Integer.parseInt(txtEnergiaAtaque.getText())))
-				{
-					setVida();
-					setEnergia();
-					setTurno();
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Fin del juego");
-					//setResultado();
-				}
-				
-				
+				//revisar y usar energía restante
+				if(!(txtEnergiaAtaque.getText() == null))
+					{
+						JOptionPane.showMessageDialog(null, ctrl.getPersonajeTurno().getNombre() + " no dispone de esa energía");
+						txtEnergiaAtaque.setText(null);
+					} else{ 
+							if(ctrl.Partida(Integer.parseInt(txtEnergiaAtaque.getText())) && 
+								   ctrl.getPersSinTurno().getVida()>0) //usar vida restante
+								{
+									setVida();
+									setEnergia();
+									ctrl.finTurno();
+									setTurno();
+								} else
+										{
+											JOptionPane.showMessageDialog(null, "Fin del juego");
+											//setResultado();
+						}
+					}
 			}
 		});
 		btnAtacar.setBounds(166, 196, 89, 23);
@@ -151,92 +162,56 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 		btnDefender.setBounds(166, 222, 89, 23);
 		contentPane.add(btnDefender);
 		
-		txtJugador1 = new JTextField();
-		txtJugador1.setEnabled(false);
-		txtJugador1.setBounds(78, 8, 71, 20);
-		contentPane.add(txtJugador1);
-		txtJugador1.setColumns(10);
+		lblJugador1 = new JLabel("");
+		lblJugador1.setBounds(88, 11, 79, 14);
+		contentPane.add(lblJugador1);
 		
-		txtVidaJugador1 = new JTextField();
-		txtVidaJugador1.setEnabled(false);
-		txtVidaJugador1.setBounds(78, 36, 70, 20);
-		contentPane.add(txtVidaJugador1);
-		txtVidaJugador1.setColumns(10);
+		lblJuagdor2 = new JLabel("");
+		lblJuagdor2.setBounds(248, 11, 90, 14);
+		contentPane.add(lblJuagdor2);
 		
-		txtEnergiaJugador1 = new JTextField();
-		txtEnergiaJugador1.setEnabled(false);
-		txtEnergiaJugador1.setColumns(10);
-		txtEnergiaJugador1.setBounds(78, 64, 71, 20);
-		contentPane.add(txtEnergiaJugador1);
+		lblVidaJugador1 = new JLabel("");
+		lblVidaJugador1.setBounds(77, 36, 46, 14);
+		contentPane.add(lblVidaJugador1);
 		
-		txtDefensaJugador1 = new JTextField();
-		txtDefensaJugador1.setEnabled(false);
-		txtDefensaJugador1.setColumns(10);
-		txtDefensaJugador1.setBounds(78, 90, 71, 20);
-		contentPane.add(txtDefensaJugador1);
+		lblVidaJugador2 = new JLabel("");
+		lblVidaJugador2.setBounds(238, 36, 46, 14);
+		contentPane.add(lblVidaJugador2);
 		
-		txtEvasionJugador1 = new JTextField();
-		txtEvasionJugador1.setEnabled(false);
-		txtEvasionJugador1.setColumns(10);
-		txtEvasionJugador1.setBounds(78, 116, 71, 20);
-		contentPane.add(txtEvasionJugador1);
+		lblDefensaJugador1 = new JLabel("");
+		lblDefensaJugador1.setBounds(77, 90, 46, 14);
+		contentPane.add(lblDefensaJugador1);
 		
-		txtJugador2 = new JTextField();
-		txtJugador2.setEnabled(false);
-		txtJugador2.setColumns(10);
-		txtJugador2.setBounds(238, 8, 71, 20);
-		contentPane.add(txtJugador2);
+		lblEvasionJugador1 = new JLabel("");
+		lblEvasionJugador1.setBounds(77, 115, 46, 14);
+		contentPane.add(lblEvasionJugador1);
 		
-		txtVidaJugador2 = new JTextField();
-		txtVidaJugador2.setEnabled(false);
-		txtVidaJugador2.setColumns(10);
-		txtVidaJugador2.setBounds(238, 36, 71, 20);
-		contentPane.add(txtVidaJugador2);
+		lblEnergiaJugador2 = new JLabel("");
+		lblEnergiaJugador2.setBounds(238, 61, 46, 14);
+		contentPane.add(lblEnergiaJugador2);
 		
-		txtEnergiaJugador2 = new JTextField();
-		txtEnergiaJugador2.setEnabled(false);
-		txtEnergiaJugador2.setColumns(10);
-		txtEnergiaJugador2.setBounds(238, 64, 71, 20);
-		contentPane.add(txtEnergiaJugador2);
+		lblDefensaJugador2 = new JLabel("");
+		lblDefensaJugador2.setBounds(238, 90, 46, 14);
+		contentPane.add(lblDefensaJugador2);
 		
-		txtDefensaJugador2 = new JTextField();
-		txtDefensaJugador2.setEnabled(false);
-		txtDefensaJugador2.setColumns(10);
-		txtDefensaJugador2.setBounds(238, 90, 71, 20);
-		contentPane.add(txtDefensaJugador2);
+		lblEvasionJugador2 = new JLabel("");
+		lblEvasionJugador2.setBounds(238, 115, 46, 14);
+		contentPane.add(lblEvasionJugador2);
 		
-		txtEvasionJugador2 = new JTextField();
-		txtEvasionJugador2.setEnabled(false);
-		txtEvasionJugador2.setColumns(10);
-		txtEvasionJugador2.setBounds(238, 115, 71, 20);
-		contentPane.add(txtEvasionJugador2);
+		lblJugadorTurno = new JLabel("");
+		lblJugadorTurno.setBounds(66, 155, 146, 14);
+		contentPane.add(lblJugadorTurno);
 		
-		txtTurno = new JTextField();
-		txtTurno.setEnabled(false);
-		txtTurno.setColumns(10);
-		txtTurno.setBounds(78, 152, 231, 20);
-		contentPane.add(txtTurno);
+		lblEnergiaJugador1 = new JLabel("");
+		lblEnergiaJugador1.setBounds(77, 61, 46, 14);
+		contentPane.add(lblEnergiaJugador1);
 		
 	}
 
 	public void setJugadores()
 	{
-			txtJugador1.setText(ctrl.getJugador1().getNombre());	
-			txtJugador2.setText(ctrl.getJugador2().getNombre());
-			
-			txtVidaJugador1.setText(String.valueOf(ctrl.getJugador1().getVida()));
-			txtVidaJugador2.setText(String.valueOf(ctrl.getJugador2().getVida()));
-			
-			txtEnergiaJugador1.setText(String.valueOf(ctrl.getJugador1().getEnergia()));
-			txtEnergiaJugador2.setText(String.valueOf(ctrl.getJugador2().getEnergia()));
-			
-			txtDefensaJugador1.setText(String.valueOf(ctrl.getJugador1().getDefensa()));
-			txtDefensaJugador2.setText(String.valueOf(ctrl.getJugador2().getDefensa()));
-			
-			txtEvasionJugador1.setText(String.valueOf(ctrl.getJugador1().getEvasion()));
-			txtEvasionJugador2.setText(String.valueOf(ctrl.getJugador2().getEvasion()));
-					
-			txtTurno.setText(ctrl.getPersonajeTurno().getNombre());
+			lblJugador1.setText(ctrl.jugador1.getNombre());
+			lblJuagdor2.setText(ctrl.jugador2.getNombre());
 	}
 	
 	public void setResultado()
@@ -245,20 +220,30 @@ public class Combate extends JFrame {  //diferente tipo de ABMPer
 	}
 	public void setVida()
 	{
-		txtVidaJugador1.setText(String.valueOf(ctrl.getJugador1().getVidaActual()));
-		txtVidaJugador2.setText(String.valueOf(ctrl.getJugador2().getVidaActual()));
+		lblVidaJugador1.setText(String.valueOf(ctrl.getJugador1().getVidaActual()));
+		lblVidaJugador2.setText(String.valueOf(ctrl.getJugador2().getVidaActual()));
 	}
 	
 	public void setEnergia()
 	{
-		txtEnergiaJugador1.setText(String.valueOf(ctrl.getJugador1().getEnergiaActual()));
-		txtEnergiaJugador2.setText(String.valueOf(ctrl.getJugador2().getEnergiaActual()));
+		lblEnergiaJugador1.setText(String.valueOf(ctrl.getJugador1().getEnergiaActual()));
+		lblEnergiaJugador2.setText(String.valueOf(ctrl.getJugador2().getEnergiaActual()));
+	}
+	
+	public void setDefensa()
+	{
+		lblDefensaJugador1.setText(String.valueOf(ctrl.getJugador1().getDefensa()));
+		lblDefensaJugador2.setText(String.valueOf(ctrl.getJugador2().getDefensa()));
+	}
+	
+	public void setEvasion()
+	{
+		lblEvasionJugador1.setText(String.valueOf(ctrl.getJugador1().getEvasion()));
+		lblEvasionJugador2.setText(String.valueOf(ctrl.getJugador2().getEvasion()));
 	}
 	
 	public void setTurno()
 	{
-		txtTurno.setText(String.valueOf(ctrl.persTurno.getNombre()));
+		lblJugadorTurno.setText(String.valueOf(ctrl.getPersonajeTurno().getNombre()));
 	}
-	
-	//
 }

@@ -7,11 +7,10 @@ public class CtrlCombate {
 	
 	private static CtrlCombate ctrlCombate;
 	
-	public Personaje jugador1, jugador2; //porque eran static las variables jugador  y 2?
+	public Personaje jugador1, jugador2, persTurno, persSinTurno;
 	private dataPersonaje dataPer;
 	private int turno=1;
-	public Personaje persTurno;
-	
+		
 	
 	
 	private CtrlCombate()
@@ -30,7 +29,7 @@ public class CtrlCombate {
 		
 		else
 		{
-			//System.out.println("error al crear instancia del controlador");
+			//
 		}
 		
 		return ctrlCombate;
@@ -42,6 +41,8 @@ public class CtrlCombate {
 	{
 		this.jugador1=p1;
 		this.jugador2=p2;
+		this.persTurno=this.jugador1;
+		this.persSinTurno=this.jugador2;
 	}
 	
 	public Personaje getJugador1()
@@ -70,22 +71,43 @@ public class CtrlCombate {
 		}
 	}
 	
-	
-	
-	public Personaje getPersonajeTurno()
+	public void finTurno()
 	{
 		
 			if(!(turno%2==0))
 			{
 				persTurno=jugador1;
+				persSinTurno=jugador2;
 			}
 			else
 			{
 				persTurno=jugador2;
+				persSinTurno=jugador1;
 			}
 			
 			turno++;
 			
+			//return persTurno;
+		
+	}
+	
+	
+	public Personaje getPersonajeTurno()
+	{
+		/*
+			if(!(turno%2==0))
+			{
+				persTurno=jugador1;
+				persSinTurno=jugador2;
+			}
+			else
+			{
+				persTurno=jugador2;
+				persSinTurno=jugador1;
+			}
+			
+			turno++;
+			*/
 			return persTurno;
 		
 	}
@@ -93,6 +115,10 @@ public class CtrlCombate {
 	public Personaje getPersTurno()
 	{
 		return persTurno;
+	}
+	
+	public Personaje getPersSinTurno(){
+		return persSinTurno;
 	}
 	
 	
