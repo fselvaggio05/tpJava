@@ -100,10 +100,6 @@ public class CtrlCombate {
 			return persTurno;
 	}
 	
-	public Personaje getPersTurno()
-	{
-		return persTurno;
-	}
 	
 	public Personaje getPersSinTurno(){
 		return persSinTurno;
