@@ -62,16 +62,19 @@ public class Personaje {
 	}
 	
 	
-	public void recibirAtaque(int energia)
+	public boolean recibirAtaque(int energia)
 	{
+		boolean evade;
 		if(evade())
 		{
-			JOptionPane.showMessageDialog(null, "Ataque evadido"); //Tirarlo al UI
+			evade = true;
 		}
 		else
 		{
 			danio = danio + energia;
+			evade = false;
 		}
+		return evade;
 	}
 	
 	

@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import business.*;
-import entities.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,7 +17,6 @@ import java.awt.event.ActionEvent;
 
 public class Combate extends JFrame {  
 
-	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtEnergiaAtaque;
 	private CtrlCombate ctrl;
@@ -135,13 +132,17 @@ public class Combate extends JFrame {
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//revisar y usar energía restante
-				if(!(txtEnergiaAtaque.getText() == null))
+				if(txtEnergiaAtaque.getText() == null)
 					{
-						JOptionPane.showMessageDialog(null, ctrl.getPersonajeTurno().getNombre() + " no dispone de esa energía");
-						txtEnergiaAtaque.setText(null);
+						JOptionPane.showMessageDialog(null, "No se puede atacar con 0 energía");
 					} else{ 
-							if(ctrl.Partida(Integer.parseInt(txtEnergiaAtaque.getText())) && 
-								   ctrl.getPersSinTurno().getVida()>0) //usar vida restante
+							if(ctrl.persTurno.getEnergiaActual()< Integer.parseInt(txtEnergiaAtaque.getText()))
+							{
+									JOptionPane.showMessageDialog(null, ctrl.persTurno.getNombre() + " no dispone de esa energía");		
+							}
+							else
+							{
+								if(ctrl.atacar(Integer.parseInt(txtEnergiaAtaque.getText())))
 								{
 									setVida();
 									setEnergia();
@@ -149,9 +150,17 @@ public class Combate extends JFrame {
 									setTurno();
 								} else
 										{
-											JOptionPane.showMessageDialog(null, "Fin del juego");
+											if(!(ctrl.atacar(Integer.parseInt(txtEnergiaAtaque.getText()))) && ctrl.persTurno.getVidaActual()>0)
+											{
+												JOptionPane.showMessageDialog(null, "Ataque Evadido");
+											}
+											else
+											{
+												JOptionPane.showMessageDialog(null, "Fin del Juego");
+											}
 											//setResultado();
 						}
+							}
 					}
 			}
 		});
@@ -159,6 +168,11 @@ public class Combate extends JFrame {
 		contentPane.add(btnAtacar);
 		
 		JButton btnDefender = new JButton("Defender");
+		btnDefender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//ctrl.defender();
+			}
+		});
 		btnDefender.setBounds(166, 222, 89, 23);
 		contentPane.add(btnDefender);
 		

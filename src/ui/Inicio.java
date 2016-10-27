@@ -51,7 +51,7 @@ public class Inicio extends JFrame {
 		JButton btnPersonajes = new JButton("Personajes");
 		btnPersonajes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ABMCPersonaje.main();				
+				ABMCPersonaje.main();
 			}
 		});
 		

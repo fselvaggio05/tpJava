@@ -55,14 +55,20 @@ public class CtrlCombate {
 		return jugador2;
 	}
 	
-	public boolean Partida(int energiaUsada)
+	public boolean atacar(int energiaUsada)
 	{
-		if((jugador1.getVidaActual()>0 && jugador2.getVidaActual()>0))
+		if(this.persSinTurno.getVidaActual()>0)
 		{
 			this.persTurno.atacar(energiaUsada);
-			this.getTurnoAnterior().recibirAtaque(energiaUsada);
-			this.getPersonajeTurno();
-			return true;
+			if(this.persSinTurno.recibirAtaque(energiaUsada))
+				{
+					return false;
+				}
+			else
+				{
+					this.getPersonajeTurno();
+					return true;
+			}
 			
 		}
 		else
@@ -85,31 +91,13 @@ public class CtrlCombate {
 				persSinTurno=jugador1;
 			}
 			
-			turno++;
-			
-			//return persTurno;
-		
+			turno++;		
 	}
 	
 	
 	public Personaje getPersonajeTurno()
-	{
-		/*
-			if(!(turno%2==0))
-			{
-				persTurno=jugador1;
-				persSinTurno=jugador2;
-			}
-			else
-			{
-				persTurno=jugador2;
-				persSinTurno=jugador1;
-			}
-			
-			turno++;
-			*/
+	{			
 			return persTurno;
-		
 	}
 	
 	public Personaje getPersTurno()
@@ -119,22 +107,6 @@ public class CtrlCombate {
 	
 	public Personaje getPersSinTurno(){
 		return persSinTurno;
-	}
-	
-	
-	public Personaje getTurnoAnterior()
-	{
-		if(this.persTurno.equals(jugador1))
-		{
-			return jugador2;
-		}
-		
-		else
-		{
-			return jugador1;
-		}
-	}
-	
-	
+	}	
 
 }
