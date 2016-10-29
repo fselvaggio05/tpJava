@@ -104,11 +104,20 @@ public class Personaje {
 	public void defender()
 	{
 		int energiaRecuperar = (energia * defensa)/100;
-		consumoEnergia=consumoEnergia - energiaRecuperar;
+		if(energiaRecuperar + this.getEnergiaActual() > this.energia)
+		{
+			consumoEnergia = 0;
+		}else{
+				consumoEnergia=consumoEnergia - energiaRecuperar;
+			 }
 		
 		int vidaRecuperar = (vida*defensa)/250;
-		danio=danio-vidaRecuperar;
-		
+		if(vidaRecuperar + this.getVidaActual() > this.vida)
+			{
+				danio = 0;
+			}else{
+					danio=danio-vidaRecuperar;
+				 }		
 	}
 	
 	public String getNombre() {

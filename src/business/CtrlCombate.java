@@ -87,6 +87,10 @@ public class CtrlCombate {
 			}
 	}
 	
+	public void defender(){
+		persTurno.defender();
+	}
+	
 	public void finTurno()
 	{
 		

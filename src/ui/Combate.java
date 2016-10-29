@@ -167,7 +167,11 @@ public class Combate extends JFrame {
 		JButton btnDefender = new JButton("Defender");
 		btnDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//ctrl.defender();
+				ctrl.defender();
+				ctrl.finTurno();
+				setVida();
+				setEnergia();
+				setTurno();
 			}
 		});
 		btnDefender.setBounds(166, 222, 89, 23);

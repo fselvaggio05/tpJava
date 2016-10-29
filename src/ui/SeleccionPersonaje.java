@@ -56,8 +56,7 @@ public class SeleccionPersonaje extends JFrame {
 	public SeleccionPersonaje() //modificacion constructor. Los separe al constructor del creador de la ventana 
 	{
 		initialize();
-		ctrl = CtrlCombate.getInstanciaUnica()
-				;
+		ctrl = CtrlCombate.getInstanciaUnica();
 	}
 		
 		
@@ -92,8 +91,10 @@ public class SeleccionPersonaje extends JFrame {
 		
 		
 		JButton btnBuscar1 = new JButton("Buscar");
+		btnBuscar1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		JButton btnBuscar2 = new JButton("Buscar");
 		btnBuscar2.setVisible(false);
+		btnBuscar2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		btnBuscar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
@@ -133,7 +134,7 @@ public class SeleccionPersonaje extends JFrame {
 		contentPane.add(btnBuscar2);
 		
 		JButton btnComenzarPartida = new JButton("Comenzar partida ");
-		btnComenzarPartida.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnComenzarPartida.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnComenzarPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(p1.equals(p2))
@@ -155,12 +156,10 @@ public class SeleccionPersonaje extends JFrame {
 		contentPane.add(lblSeleccionJugadores);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] args = null;
-				//aca habría que buscar la forma que se pueda cerrar la ventana originak
-				//antes de abrir la otra porque sino se acumulan pero con el
-				//frame.dispose(); se generan errores despues
 				Inicio.main(args);
 			}
 		});
