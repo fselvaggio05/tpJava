@@ -91,10 +91,13 @@ public class SeleccionPersonaje extends JFrame {
 		txtJugador2.setEditable(false);
 		
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
+		JButton btnBuscar1 = new JButton("Buscar");
+		JButton btnBuscar2 = new JButton("Buscar");
+		btnBuscar2.setVisible(false);
+		
+		btnBuscar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				Personaje per = dataPer.getByNombre(txtJugador1.getText()); //controlador????
+				Personaje per = dataPer.getByNombre(txtJugador1.getText());
 				if(per == null){
 					JOptionPane.showMessageDialog(null, "El jugador no existe");
 				} 
@@ -103,14 +106,16 @@ public class SeleccionPersonaje extends JFrame {
 					p1 = per;
 					txtJugador1.setEditable(false);
 					txtJugador2.setEditable(true);
+					btnBuscar1.setVisible(false);
+					btnBuscar2.setVisible(true);
 				}				
 			}
 		});
-		btnBuscar.setBounds(357, 62, 89, 23);
-		contentPane.add(btnBuscar);
+		btnBuscar1.setBounds(357, 62, 89, 23);
+		contentPane.add(btnBuscar1);
 		
-		JButton btnBuscar_1 = new JButton("Buscar");
-		btnBuscar_1.addActionListener(new ActionListener() {
+		
+		btnBuscar2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Personaje per = dataPer.getByNombre(txtJugador2.getText());
 				if(per == null){
@@ -120,11 +125,12 @@ public class SeleccionPersonaje extends JFrame {
 				{
 					p2 = per;
 					txtJugador2.setEditable(false);
+					btnBuscar2.setVisible(false);
 				}
 			}
 		});
-		btnBuscar_1.setBounds(357, 98, 89, 23);
-		contentPane.add(btnBuscar_1);
+		btnBuscar2.setBounds(357, 98, 89, 23);
+		contentPane.add(btnBuscar2);
 		
 		JButton btnComenzarPartida = new JButton("Comenzar partida ");
 		btnComenzarPartida.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -137,9 +143,7 @@ public class SeleccionPersonaje extends JFrame {
 				else
 					{
 						Combate.main();
-						ctrl.setJugadores(p1, p2);
-						
-						
+						ctrl.setJugadores(p1, p2);												
 					}
 			}
 		});

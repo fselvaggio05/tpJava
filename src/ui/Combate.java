@@ -131,39 +131,36 @@ public class Combate extends JFrame {
 		JButton btnAtacar = new JButton("Atacar");
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//revisar y usar energía restante
 				if(txtEnergiaAtaque.getText() == null)
 					{
 						JOptionPane.showMessageDialog(null, "No se puede atacar con 0 energía");
 					} else{ 
-							if(ctrl.persTurno.getEnergiaActual()< Integer.parseInt(txtEnergiaAtaque.getText()))
-							{
-									JOptionPane.showMessageDialog(null, ctrl.persTurno.getNombre() + " no dispone de esa energía");		
-							}
-							else
-							{
-								if(ctrl.atacar(Integer.parseInt(txtEnergiaAtaque.getText())))
+							if(ctrl.atacar(Integer.parseInt(txtEnergiaAtaque.getText())))
 								{
 									setVida();
 									setEnergia();
 									ctrl.finTurno();
 									setTurno();
-								} else
-										{
-											if(!(ctrl.atacar(Integer.parseInt(txtEnergiaAtaque.getText()))) && ctrl.persTurno.getVidaActual()>0)
+								}else{
+										if(ctrl.jugadorEvadio)
 											{
 												JOptionPane.showMessageDialog(null, "Ataque Evadido");
-											}
-											else
-											{
-												JOptionPane.showMessageDialog(null, "Fin del Juego");
-											}
-											//setResultado();
-						}
+												ctrl.finTurno();
+												setEnergia();
+												setTurno();
+											}else{
+													if(ctrl.jugadorSinEnergia)
+														{
+															JOptionPane.showMessageDialog(null, ctrl.persTurno.getNombre() + " no dispone de esa energía");
+														}else{
+																JOptionPane.showMessageDialog(null, "Fin del Juego");
+															 }
+												  }
+									  }
 							}
 					}
-			}
-		});
+			});
+		
 		btnAtacar.setBounds(166, 196, 89, 23);
 		contentPane.add(btnAtacar);
 		

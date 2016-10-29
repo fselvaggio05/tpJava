@@ -9,7 +9,8 @@ public class CtrlCombate {
 	
 	public Personaje jugador1, jugador2, persTurno, persSinTurno;
 	private dataPersonaje dataPer;
-	private int turno=1;
+	private int turno=0;
+	public boolean jugadorSinVida, jugadorEvadio, jugadorSinEnergia;
 		
 	
 	
@@ -57,24 +58,33 @@ public class CtrlCombate {
 	
 	public boolean atacar(int energiaUsada)
 	{
-		if(this.persSinTurno.getVidaActual()>0)
+		if(this.persSinTurno.getVidaActual()>0 && this.persTurno.getVidaActual()>0)
 		{
 			this.persTurno.atacar(energiaUsada);
 			if(this.persSinTurno.recibirAtaque(energiaUsada))
 				{
+					this.jugadorEvadio = true;
+					this.jugadorSinEnergia = false;
+					this.jugadorSinVida = false;
 					return false;
-				}
-			else
-				{
-					this.getPersonajeTurno();
-					return true;
+				} else{
+						if(this.persTurno.getEnergiaActual()< energiaUsada)
+							{
+								this.jugadorSinEnergia = true;
+								this.jugadorSinVida = false;
+								this.jugadorEvadio = false;
+								return false;
+							}else{
+									return true;
+							     }
+					   }		
+		} else
+			{
+				jugadorSinVida = true;
+				jugadorEvadio = false;
+				jugadorSinEnergia = false;
+				return false;
 			}
-			
-		}
-		else
-		{
-			return false;
-		}
 	}
 	
 	public void finTurno()
