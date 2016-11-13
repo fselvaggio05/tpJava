@@ -60,7 +60,10 @@ public class CtrlCombate {
 	{
 		if(this.persSinTurno.getVidaActual()>0 && this.persTurno.getVidaActual()>0)
 		{
+		  if(this.persTurno.getEnergiaActual()>= energiaUsada)
+		  {
 			this.persTurno.atacar(energiaUsada);
+			
 			if(this.persSinTurno.recibirAtaque(energiaUsada))
 				{
 					this.jugadorEvadio = true;
@@ -68,17 +71,19 @@ public class CtrlCombate {
 					this.jugadorSinVida = false;
 					return false;
 				} else{
-						if(this.persTurno.getEnergiaActual()<energiaUsada)
+						/*if(this.persTurno.getEnergiaActual()<energiaUsada)
 							{
 								this.jugadorSinEnergia = true; //cambiado por false 
 								this.jugadorSinVida = false;
-								this.jugadorEvadio = false;
-								return false;
-							}else{
-									
-									return true;
-							     }
+								this.jugadorEvadio = false;*/
+								return true;
+							}
 					   }		
+		  this.jugadorSinEnergia = true; //cambiado por false 
+		  this.jugadorSinVida = false;
+		  this.jugadorEvadio = false;
+		  return false;
+		  
 		} else
 			{
 				jugadorSinVida = true;
