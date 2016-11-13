@@ -154,6 +154,7 @@ public class Combate extends JFrame {
 															JOptionPane.showMessageDialog(null, ctrl.persTurno.getNombre() + " no dispone de esa energía");
 														}else{
 																JOptionPane.showMessageDialog(null, "Fin del Juego");
+																
 															 }
 												  }
 									  }

@@ -23,7 +23,7 @@ public class Personaje {
 	{
 		this.setNombre(nombre);
 		int ptsTotales=vida + energia + defensa + evasion;		 
-		if(ptsTotales > 200)
+		if(ptsTotales > 200)    //validacion hecha por otro lado
 		{
 			resultado = false;
 		}

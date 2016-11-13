@@ -1,5 +1,5 @@
 package business;
-//en el ejercicio de ABM Personas, el controlador no tiene conexion con la cada de data..Estara bien??
+
 import java.io.InvalidClassException;
 
 
@@ -19,17 +19,17 @@ public class CtrlABMCPersonaje {
 	
 	public void add(Personaje p) throws ApplicationException{
 	
-	
-			/* ver como validar si un personaje ya esta en la bd
-			 * if(p.getNombre()==this.getPersonaje(p))
+			Personaje per=dataPer.getByNombre(p.getNombre());
+			
+			 if(per==null)
 			 
 			{
-				throw new ApplicationException("El personaje ya existe");
+				dataPer.add(p);
 			}
 			
-			else*/
+			else
 			{
-				dataPer.add(p);
+				throw new ApplicationException("El personaje ya existe");
 			}
 		//}
 		
@@ -56,5 +56,19 @@ public class CtrlABMCPersonaje {
 	public Personaje getPersonaje(String nombre){
 		return dataPer.getByNombre(nombre);
  	}
-		
+	
+	public boolean validarPuntos(Personaje p)
+	{
+		int ptsTotales;
+		ptsTotales=0;
+		ptsTotales=p.getDefensa()+p.getEnergia()+p.getEvasion()+p.getVida();
+		if(ptsTotales>200)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

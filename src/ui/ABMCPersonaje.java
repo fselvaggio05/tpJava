@@ -115,16 +115,6 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(txtDefensa);
 		txtDefensa.setColumns(10);
 		
-		
-		JLabel lblNewLabel = new JLabel("Puntos totales:");
-		lblNewLabel.setBounds(12, 202, 114, 14);
-		frame.getContentPane().add(lblNewLabel);
-		
-		txtPtsTotales = new JTextField();
-		txtPtsTotales.setBounds(142, 204, 114, 20);
-		frame.getContentPane().add(txtPtsTotales);
-		txtPtsTotales.setColumns(10);
-		
 		JLabel lblEvasion = new JLabel("Evasion:");
 		lblEvasion.setBounds(12, 169, 86, 14);
 		frame.getContentPane().add(lblEvasion);
@@ -185,6 +175,15 @@ public class ABMCPersonaje {
 		btnVolver.setBounds(285, 268, 114, 25);
 		frame.getContentPane().add(btnVolver);
 		
+		JLabel lblPtsTotales = new JLabel("Puntos totales:");
+		lblPtsTotales.setBounds(10, 202, 88, 14);
+		frame.getContentPane().add(lblPtsTotales);
+		
+		txtPtsTotales = new JTextField();
+		txtPtsTotales.setBounds(142, 202, 114, 20);
+		frame.getContentPane().add(txtPtsTotales);
+		txtPtsTotales.setColumns(10);
+		
 			
 		
 	}
@@ -218,17 +217,39 @@ public class ABMCPersonaje {
 		if(datosValidos()){
 			try {
 				Personaje p=MapearDeFormulario();
+				
+				if(ctrl.validarPuntos(p))
+				{
+					notifyUser("La distribucion de puntos no puede ser mayor a 200");
+				}
+				else
+				{
 				ctrl.add(p);
 				MapearAFormulario(p);
 				limpiarCampos();
 				notifyUser("Personaje agregado exitosamente");
+				}
 				
 			} catch (ApplicationException ae) {
 				notifyUser(ae.getMessage(),ae, Level.DEBUG);
 			}
 		}
 	}
-
+	
+	
+	public int setPtsTotales()
+	{
+		int vida,defensa,energia,evasion;
+		defensa=Integer.parseInt(txtDefensa.getText());
+		vida=Integer.parseInt(txtVida.getText());
+		energia=Integer.parseInt(txtEnergia.getText());
+		evasion=Integer.parseInt(txtEvasion.getText());
+		
+		txtPtsTotales.setText(String.valueOf(vida+energia+defensa+evasion));
+		return vida+energia+evasion+defensa;
+	
+	}
+	
 	private void limpiarCampos() {
 		txtId.setText("");
 		txtNombre.setText("");
@@ -261,7 +282,8 @@ public class ABMCPersonaje {
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()));
+		//txtPtsTotales.setText(String.valueOf(this.setPtsTotales());
+		this.setPtsTotales();
 	}
 	
 	public Personaje MapearDeFormulario(){
@@ -274,11 +296,11 @@ public class ABMCPersonaje {
 		else
 		{
 			p.setNombre(txtNombre.getText());
-			p.setVida(Integer.parseInt(txtEnergia.getText()));
-			p.setEnergia(Integer.parseInt(txtVida.getText()));
+			p.setVida(Integer.parseInt(txtVida.getText()));
+			p.setEnergia(Integer.parseInt(txtEnergia.getText()));
 			p.setDefensa(Integer.parseInt(txtDefensa.getText()));
 			p.setEvasion(Integer.parseInt(txtEvasion.getText()));;
-			p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
+			p.setPuntosTotales(this.setPtsTotales());
 			
 		}
 			

@@ -68,13 +68,14 @@ public class CtrlCombate {
 					this.jugadorSinVida = false;
 					return false;
 				} else{
-						if(this.persTurno.getEnergiaActual()< energiaUsada)
+						if(this.persTurno.getEnergiaActual()<energiaUsada)
 							{
-								this.jugadorSinEnergia = true;
+								this.jugadorSinEnergia = true; //cambiado por false 
 								this.jugadorSinVida = false;
 								this.jugadorEvadio = false;
 								return false;
 							}else{
+									
 									return true;
 							     }
 					   }		
