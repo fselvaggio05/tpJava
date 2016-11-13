@@ -175,8 +175,8 @@ public class ABMCPersonaje {
 		btnVolver.setBounds(285, 268, 114, 25);
 		frame.getContentPane().add(btnVolver);
 		
-		JLabel lblPtsTotales = new JLabel("Puntos totales:");
-		lblPtsTotales.setBounds(10, 202, 88, 14);
+		JLabel lblPtsTotales = new JLabel("Puntos disponibles:");
+		lblPtsTotales.setBounds(10, 202, 105, 14);
 		frame.getContentPane().add(lblPtsTotales);
 		
 		txtPtsTotales = new JTextField();
@@ -203,6 +203,7 @@ public class ABMCPersonaje {
 	protected void modificar() {
 		try {
 			ctrl.update(MapearDeFormulario());
+			notifyUser("Personaje modificado con exito");
 			limpiarCampos();
 		} catch (ApplicationException appe) {
 			notifyUser(appe.getMessage(),appe, Level.DEBUG);
@@ -216,6 +217,7 @@ public class ABMCPersonaje {
 	protected void agregar() {
 		if(datosValidos()){
 			try {
+							
 				Personaje p=MapearDeFormulario();
 				
 				if(ctrl.validarPuntos(p))
@@ -239,14 +241,16 @@ public class ABMCPersonaje {
 	
 	public int setPtsTotales()
 	{
-		int vida,defensa,energia,evasion;
+		int vida,defensa,energia,evasion,pts; //variables agregadas para pasar los atributos a validaPuntos por parametro
+		
 		defensa=Integer.parseInt(txtDefensa.getText());
 		vida=Integer.parseInt(txtVida.getText());
 		energia=Integer.parseInt(txtEnergia.getText());
 		evasion=Integer.parseInt(txtEvasion.getText());
+		pts=200-(vida+energia+defensa+evasion);
+		return pts;
 		
-		txtPtsTotales.setText(String.valueOf(vida+energia+defensa+evasion));
-		return vida+energia+evasion+defensa;
+		
 	
 	}
 	
@@ -283,7 +287,8 @@ public class ABMCPersonaje {
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
 		//txtPtsTotales.setText(String.valueOf(this.setPtsTotales());
-		this.setPtsTotales();
+		
+		txtPtsTotales.setText(String.valueOf(this.setPtsTotales()));
 	}
 	
 	public Personaje MapearDeFormulario(){

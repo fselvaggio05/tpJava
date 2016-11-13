@@ -88,6 +88,37 @@ public class dataPersonaje {
 		}
 	}
 	
+	public void updatePuntos(Personaje p, int pts){
+		PreparedStatement stmt=null;
+		
+		try {
+			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update personaje set puntosTotales=?"+
+					" where nombre=?");
+			
+			
+			stmt.setInt(1,pts);
+			stmt.setString(2, p.getNombre());
+			
+			stmt.execute();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public void delete(Personaje p){
 		PreparedStatement stmt=null;
 		

@@ -124,5 +124,10 @@ public class CtrlCombate {
 	public Personaje getPersSinTurno(){
 		return persSinTurno;
 	}	
+	
+	public void asignarPuntos()
+	{
+		dataPer.updatePuntos(this.persSinTurno,10);
+	}
 
 }
