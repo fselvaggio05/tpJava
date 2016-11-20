@@ -93,12 +93,12 @@ public class dataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personaje set puntosTotales=?"+
+					"update personaje set puntosTotales=puntosTotales+10"+
 					" where nombre=?");
 			
 			
-			stmt.setInt(1,pts);
-			stmt.setString(2, p.getNombre());
+			//stmt.setInt(1,pts);
+			stmt.setString(1, p.getNombre());
 			
 			stmt.execute();
 			
@@ -223,5 +223,6 @@ public class dataPersonaje {
 		
 		return p;
 	}
+	
 	
 }

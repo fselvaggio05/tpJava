@@ -40,9 +40,8 @@ public class CtrlABMCPersonaje {
 		
 		
 				dataPer.update(p);
+				
 			
-		
-		
 	}
 	
 	public void delete(Personaje p) throws ApplicationException
@@ -71,4 +70,16 @@ public class CtrlABMCPersonaje {
 			return false;
 		}
 	}
+	
+	public int setPtsTotales(Personaje p)
+	{
+		int pts; 
+		pts=p.getDefensa()+p.getEnergia()+p.getEvasion()+p.getVida();
+		
+		return pts;
+		
+			
+	}
+	
+
 }

@@ -31,6 +31,7 @@ public class ABMCPersonaje {
 	private JTextField txtDefensa;
 	private JTextField txtEvasion;
 	private JTextField txtPtsTotales;
+	private int puntosAnteriores;
 
 	/**
 	 * Launch the application.
@@ -180,6 +181,7 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(lblPtsTotales);
 		
 		txtPtsTotales = new JTextField();
+		txtPtsTotales.setEnabled(false);
 		txtPtsTotales.setBounds(142, 202, 114, 20);
 		frame.getContentPane().add(txtPtsTotales);
 		txtPtsTotales.setColumns(10);
@@ -201,17 +203,61 @@ public class ABMCPersonaje {
 	}
 
 	protected void modificar() {
+		/*if(datosValidos()){
+			
 		try {
-			ctrl.update(MapearDeFormulario());
+			
+			Personaje p=MapearDeFormulario();
+			
+			if(ctrl.validarPuntos(p))
+			{
 			notifyUser("Personaje modificado con exito");
 			limpiarCampos();
-		} catch (ApplicationException appe) {
-			notifyUser(appe.getMessage(),appe, Level.DEBUG);
-		} catch (ArithmeticException are){
+			}
+			else
+			{
+				notifyUser("La distribucion de puntos no puede exceder los puntos disponibles");
+			}
+		} catch (ApplicationException ae) {
+			notifyUser(ae.getMessage(),ae, Level.DEBUG);
+		}
+		 catch (ArithmeticException are){
 			notifyUser("Ha ocurrido algo inesperado, consulte al administrador de sistemas.", are, Level.ERROR);
 		} catch (Exception e){
 			notifyUser("Ha ocurrido algo totalmente inesperado, consulte al administrador de sistemas.",e, Level.FATAL);
 		} 
+	}*/
+		if(datosValidos()){
+			try {
+					
+				//recuperar puntos
+				Personaje p=MapearDeFormulario();
+				
+				if(200-ctrl.setPtsTotales(p)>=0)
+				{
+					ctrl.update(MapearDeFormulario());
+					notifyUser("Personaje modificado con exito");
+					limpiarCampos();
+				}
+				 
+				else
+				{
+					if(puntosAnteriores-ctrl.setPtsTotales(p)<0)
+					
+						notifyUser("No se pueden asignar mas puntos que los disponibles");
+					else
+					{
+						ctrl.update(MapearDeFormulario());
+						notifyUser("Personaje modificado con exito");
+						limpiarCampos();
+					}
+				
+				}
+				
+			} catch (ApplicationException ae) {
+				notifyUser(ae.getMessage(),ae, Level.DEBUG);
+			}
+		}
 	}
 
 	protected void agregar() {
@@ -228,8 +274,9 @@ public class ABMCPersonaje {
 				{
 				ctrl.add(p);
 				MapearAFormulario(p);
-				limpiarCampos();
+				
 				notifyUser("Personaje agregado exitosamente");
+				limpiarCampos();
 				}
 				
 			} catch (ApplicationException ae) {
@@ -239,20 +286,7 @@ public class ABMCPersonaje {
 	}
 	
 	
-	public int setPtsTotales()
-	{
-		int vida,defensa,energia,evasion,pts; //variables agregadas para pasar los atributos a validaPuntos por parametro
-		
-		defensa=Integer.parseInt(txtDefensa.getText());
-		vida=Integer.parseInt(txtVida.getText());
-		energia=Integer.parseInt(txtEnergia.getText());
-		evasion=Integer.parseInt(txtEvasion.getText());
-		pts=200-(vida+energia+defensa+evasion);
-		return pts;
-		
-		
 	
-	}
 	
 	private void limpiarCampos() {
 		txtId.setText("");
@@ -275,10 +309,12 @@ public class ABMCPersonaje {
 		{
 			notifyUser("No se ha encontrado el personaje");
 		}
+		
+		puntosAnteriores=p.getPuntosTotales();
 	}
 
 	public void MapearAFormulario(Personaje p){
-		//if(p.getId()>0) txtId.setText(String.valueOf(p.getId())); //los int los toma con string.valueof
+		
 		
 		txtId.setText(String.valueOf(p.getId()));
 		txtNombre.setText(p.getNombre());
@@ -286,9 +322,16 @@ public class ABMCPersonaje {
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		//txtPtsTotales.setText(String.valueOf(this.setPtsTotales());
+		txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()-ctrl.setPtsTotales(p)));
+		/*if(p.getPuntosTotales()>=200)
+		{
+			txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()-200));
+		}
+		else
+		{
+			txtPtsTotales.setText(String.valueOf(200-p.getPuntosTotales()));
+		}*/
 		
-		txtPtsTotales.setText(String.valueOf(this.setPtsTotales()));
 	}
 	
 	public Personaje MapearDeFormulario(){
@@ -304,13 +347,28 @@ public class ABMCPersonaje {
 			p.setVida(Integer.parseInt(txtVida.getText()));
 			p.setEnergia(Integer.parseInt(txtEnergia.getText()));
 			p.setDefensa(Integer.parseInt(txtDefensa.getText()));
-			p.setEvasion(Integer.parseInt(txtEvasion.getText()));;
-			p.setPuntosTotales(this.setPtsTotales());
+			p.setEvasion(Integer.parseInt(txtEvasion.getText()));
+			p.setPuntosTotales(ctrl.setPtsTotales(p));
+			
+			/*if(this.setPtsTotales()<0)
+			{
+				p.setPuntosTotales(this.setPtsTotales());
+				
+			}
+			else
+			{
+		
+				p.setPuntosTotales(Integer.parseInt(txtPtsTotales.getText()));
+			}*/
+			
+			
 			
 		}
 			
 		return p;
 	}
+	
+	
 	
 	public boolean datosValidos(){
 		boolean valido=true;
