@@ -242,9 +242,11 @@ public class ABMCPersonaje {
 				 
 				else
 				{
-					if(puntosAnteriores-ctrl.setPtsTotales(p)<0)
-					
+					if((ctrl.setPtsTotales(p)-puntosAnteriores)-200<0)
+					{
 						notifyUser("No se pueden asignar mas puntos que los disponibles");
+					}
+					
 					else
 					{
 						ctrl.update(MapearDeFormulario());
@@ -252,7 +254,7 @@ public class ABMCPersonaje {
 						limpiarCampos();
 					}
 				
-				}
+			}
 				
 			} catch (ApplicationException ae) {
 				notifyUser(ae.getMessage(),ae, Level.DEBUG);
@@ -322,15 +324,16 @@ public class ABMCPersonaje {
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()-ctrl.setPtsTotales(p)));
-		/*if(p.getPuntosTotales()>=200)
+		//funcionaba
+		
+		if(p.getPuntosTotales()>=200)
 		{
-			txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()-200));
+			txtPtsTotales.setText(String.valueOf(p.getPuntosTotales()-ctrl.setPtsTotales(p)));
 		}
 		else
 		{
-			txtPtsTotales.setText(String.valueOf(200-p.getPuntosTotales()));
-		}*/
+			txtPtsTotales.setText(String.valueOf(200-ctrl.setPtsTotales(p)));
+		}
 		
 	}
 	
